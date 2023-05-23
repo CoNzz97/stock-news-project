@@ -73,18 +73,21 @@ with requests.get("https://newsapi.org/v2/everything", params=news_api_params) a
 # print(results_dict)
     # print(results_dict)
 ## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number. 
+# Send a seperate message with the percentage change and each article's title and description to your phone number.
 if not send_message:
 
+    formatted_articles = [f"Headline: {article['title']}. \nBrief: {article['description']}" for article in results]
+    print(formatted_articles)
     client = Client(account_sid, auth_token)
 
-    message = client.messages \
-        .create(
-        body="It's going to rain today. Remember to bring an Umbrella.",
-        from_='+447481337984',
-        to='+447876203324'
-    )
-    print(message.status)
+    for article in formatted_articles:
+        message = client.messages \
+            .create(
+            body=article,
+            from_='+447481337984',
+            to='+447876203324'
+        )
+        print(message.status)
 
 
 # Optional: Format the SMS message like this:

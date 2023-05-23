@@ -90,6 +90,7 @@ if not send_message:
         print(message.status)
 
 
+
 # Optional: Format the SMS message like this:
 """
 TSLA: 🔺2%
